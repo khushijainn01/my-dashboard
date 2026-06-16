@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  name             String
+  email            String   @unique
+  password         String
+  role             String   @default("Admin")
+  createdAt        DateTime @default(now())
+  twoFactorEnabled Boolean  @default(false)
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  title     String
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  action    String
+  details   String
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  email       String   @unique
+  phoneNumber String
+  role        String
+  password    String
+  status      String   @default("Active")
+  createdAt   DateTime @default(now())
+}
